@@ -6,11 +6,14 @@ Aplicación móvil (Flutter) para la gestión de barberías: acceso de usuarios,
 
 ## ✨ Características
 
-- Inicio de sesión y registro de usuarios con **Supabase Auth**.
+- Inicio de sesión y registro de usuarios con **Supabase Auth** (email/contraseña).
+- Inicio de sesión social con **Google y Apple** vía Supabase OAuth (requiere configurar credenciales, ver abajo).
+- Selector de **tema claro/oscuro** y de **idioma (ES/EN)** en la pantalla de acceso.
 - Persistencia de sesión: la app recuerda al usuario autenticado (`AuthGate`).
+- Sistema de **roles** (`cliente`, `barbero`, `admin`) mediante tabla `profiles` en Supabase, con asignación segura del rol.
 - Tema "Modo Oscuro Premium" (negro + dorado) construido con Material 3.
 - Validación de formularios (correo y contraseña) y manejo de errores.
-- Arquitectura organizada por capas: `screens/`, `services/`, `theme/`, `widgets/`.
+- Arquitectura organizada por capas: `screens/`, `services/`, `theme/`, `l10n/`, `widgets/`.
 - Soporte multiplataforma (Android, iOS, Web, Windows, macOS, Linux) gracias a Flutter.
 
 ## 🧱 Tech Stack
@@ -68,7 +71,25 @@ SUPABASE_ANON_KEY=tu-anon-key
 
 > ⚠️ El archivo `.env` está en `.gitignore` y nunca debe subirse al repositorio.
 
-### 4. Ejecutar la app
+### 4. Configurar la base de datos (roles de usuario)
+
+Ejecuta el script [supabase/schema.sql](supabase/schema.sql) en el **SQL Editor** de tu proyecto Supabase. Esto crea la tabla `profiles` y asigna automáticamente el rol `cliente` a cada usuario nuevo.
+
+Para convertir tu propia cuenta en **administrador**, regístrate normalmente desde la app y luego ejecuta en el SQL Editor:
+
+```sql
+update public.profiles set role = 'admin' where email = 'tu-correo@ejemplo.com';
+```
+
+> 🔒 El rol nunca se elige desde el formulario de registro: por seguridad, solo puede escalarse manualmente desde Supabase.
+
+### 5. (Opcional) Configurar login con Google/Apple
+
+1. En Supabase: **Authentication → Providers**, habilita Google y/o Apple con sus credenciales OAuth.
+2. En **Authentication → URL Configuration**, agrega `io.dofepro.barberpro://login-callback` como Redirect URL (usado en Android/iOS).
+3. En Web no requiere configuración adicional de deep link.
+
+### 6. Ejecutar la app
 
 ```bash
 flutter run

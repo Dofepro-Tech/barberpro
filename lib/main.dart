@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:barberpro/screens/home_screen.dart';
 import 'package:barberpro/screens/login_screen.dart';
 import 'package:barberpro/theme/app_theme.dart';
+import 'package:barberpro/theme/theme_controller.dart';
 
 /// Punto de entrada de BarberOS: carga la configuración de entorno,
 /// inicializa Supabase y arranca la app en Modo Oscuro Premium.
@@ -33,12 +34,18 @@ class BarberOSApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BarberOS',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
-      darkTheme: AppTheme.dark,
-      home: const AuthGate(),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: ThemeController.mode,
+      builder: (context, mode, _) {
+        return MaterialApp(
+          title: 'BarberOS',
+          debugShowCheckedModeBanner: false,
+          themeMode: mode,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          home: const AuthGate(),
+        );
+      },
     );
   }
 }

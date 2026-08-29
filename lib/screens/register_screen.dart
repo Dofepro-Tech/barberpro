@@ -38,7 +38,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Cuenta creada. Revisa tu correo para confirmar.')),
+        const SnackBar(
+          content: Text('Cuenta creada. Revisa tu correo para confirmar.'),
+        ),
       );
       Navigator.of(context).pop();
     } on AuthException catch (e) {
@@ -74,13 +76,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     labelText: 'Correo Electrónico',
-                    prefixIcon: Icon(Icons.email_outlined, color: AppColors.gold),
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: AppColors.gold,
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Ingresa tu correo electrónico';
                     }
-                    if (!value.contains('@')) return 'Correo electrónico inválido';
+                    if (!value.contains('@')) {
+                      return 'Correo electrónico inválido';
+                    }
                     return null;
                   },
                 ),
@@ -90,13 +97,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
-                    prefixIcon: const Icon(Icons.lock_outline, color: AppColors.gold),
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: AppColors.gold,
+                    ),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                        _obscurePassword
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
                         color: Colors.white54,
                       ),
-                      onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
                     ),
                   ),
                   validator: (value) {
@@ -113,7 +126,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ? const SizedBox(
                           height: 20,
                           width: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.black,
+                          ),
                         )
                       : const Text('Registrarme'),
                 ),
