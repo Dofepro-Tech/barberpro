@@ -169,18 +169,19 @@ class LanguageToggleButton extends StatelessWidget {
     return ValueListenableBuilder<AppLanguage>(
       valueListenable: LocaleController.language,
       builder: (context, language, _) {
+        final theme = Theme.of(context);
         return PopupMenuButton<AppLanguage>(
           tooltip: 'Cambiar idioma',
           initialValue: language,
           onSelected: LocaleController.select,
-          color: AppColors.surface,
+          color: theme.colorScheme.surface,
           itemBuilder: (context) => AppLanguage.values
               .map(
                 (lang) => PopupMenuItem(
                   value: lang,
                   child: Text(
                     lang.displayName,
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: theme.colorScheme.onSurface),
                   ),
                 ),
               )
@@ -190,8 +191,14 @@ class LanguageToggleButton extends StatelessWidget {
             children: [
               const Icon(Icons.language, color: AppColors.gold),
               const SizedBox(width: 6),
-              Text(language.code, style: const TextStyle(color: Colors.white)),
-              const Icon(Icons.arrow_drop_down, color: Colors.white70),
+              Text(
+                language.code,
+                style: TextStyle(color: theme.colorScheme.onSurface),
+              ),
+              Icon(
+                Icons.arrow_drop_down,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ],
           ),
         );

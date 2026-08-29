@@ -127,9 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 8),
                         Text(
                           Strings.t('tagline'),
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: Colors.white54,
-                          ),
+                          style: theme.textTheme.bodyMedium,
                         ),
                       ],
                     ),
@@ -174,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           _obscurePassword
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: Colors.white54,
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
                         onPressed: () => setState(
                           () => _obscurePassword = !_obscurePassword,
@@ -209,18 +207,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   // 6. Botones de Acceso Rápido (Google / Apple)
                   Row(
                     children: [
-                      const Expanded(child: Divider(color: Colors.white24)),
+                      Expanded(child: Divider(color: theme.dividerColor)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           Strings.t('orContinueWith'),
-                          style: const TextStyle(
-                            color: Colors.white30,
+                          style: TextStyle(
+                            color: theme.colorScheme.onSurfaceVariant,
                             fontSize: 12,
                           ),
                         ),
                       ),
-                      const Expanded(child: Divider(color: Colors.white24)),
+                      Expanded(child: Divider(color: theme.dividerColor)),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -254,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: RichText(
                         text: TextSpan(
                           text: Strings.t('noAccount'),
-                          style: const TextStyle(color: Colors.white54),
+                          style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
                           children: [
                             TextSpan(
                               text: Strings.t('registerHere'),

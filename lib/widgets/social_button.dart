@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:barberpro/theme/app_theme.dart';
 
 /// Botón redondeado para accesos rápidos con proveedores externos (Google/Apple).
 class SocialButton extends StatelessWidget {
@@ -10,16 +9,17 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: theme.dividerColor),
         ),
-        child: Icon(icon, color: Colors.white, size: 28),
+        child: Icon(icon, color: theme.colorScheme.onSurface, size: 28),
       ),
     );
   }
