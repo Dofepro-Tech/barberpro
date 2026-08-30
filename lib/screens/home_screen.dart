@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:barberpro/screens/services_screen.dart';
 import 'package:barberpro/services/auth_service.dart';
 
 /// Pantalla principal mostrada tras iniciar sesión. Muestra el rol del
@@ -53,6 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (role != null) ...[
                   const SizedBox(height: 16),
                   Chip(label: Text('Rol: $role')),
+                  const SizedBox(height: 20),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => ServicesScreen(isAdmin: role == 'admin'),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.content_cut),
+                    label: const Text('Ver servicios'),
+                  ),
                   if (role == 'admin') ...[
                     const SizedBox(height: 8),
                     const Text(
