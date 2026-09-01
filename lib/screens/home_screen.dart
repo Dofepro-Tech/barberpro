@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.arrow_back),
             tooltip: 'Volver al portafolio',
             onPressed: () => launchUrl(
-              Uri.parse('https://dofepro.do'),
+              Uri.parse('https://dofepro-tech.github.io/Mi-Portafolio/'),
               mode: LaunchMode.platformDefault,
               webOnlyWindowName: '_self',
             ),
