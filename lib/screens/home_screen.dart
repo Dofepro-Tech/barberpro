@@ -3,6 +3,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:barberpro/screens/services_screen.dart';
 import 'package:barberpro/services/auth_service.dart';
+import 'package:barberpro/widgets/app_footer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Pantalla principal mostrada tras iniciar sesión. Muestra el rol del
 /// usuario (cliente/barbero/admin) consultado desde la tabla `profiles`.
@@ -30,6 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('BARBER OS'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.arrow_back),
+            tooltip: 'Volver al portafolio',
+            onPressed: () => launchUrl(
+              Uri.parse('https://dofepro.do'),
+              mode: LaunchMode.platformDefault,
+              webOnlyWindowName: '_self',
+            ),
+          ),
+          IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Cerrar sesión',
             onPressed: () async {
@@ -38,8 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: FutureBuilder<String>(
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: FutureBuilder<String>(
           future: _roleFuture,
           builder: (context, snapshot) {
             final role = snapshot.data;
@@ -77,7 +91,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             );
           },
-        ),
+              ),
+            ),
+          ),
+          const AppFooter(),
+        ],
       ),
     );
   }
